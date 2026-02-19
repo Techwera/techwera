@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Inquiry | Techwera Export Systems Pvt Ltd</title>
+    <link rel="stylesheet" href="./Assets/CSS/Form.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Techwera Export Systems</h1>
+            <p>Premium Digital Engineering & Consultation</p>
+        </header>
+
+        <div class="layout-grid">
+            <main class="card">
+                <form id="inquiryForm" novalidate>
+                    <div class="form-grid">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Full Name <span class="req">*</span></label>
+                                <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyName">Company Name (Optional)</label>
+                                <input type="text" id="companyName" name="companyName" placeholder="Your Company Ltd.">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address <span class="req">*</span></label>
+                                <input type="email" id="email" name="email" required placeholder="john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number <span class="req">*</span></label>
+                                <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required placeholder="9876543210" title="Please enter a valid 10-digit number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="service">Service Needed <span class="req">*</span></label>
+                                <select id="service" name="service" required>
+                                    <option value="" disabled selected>Select a service</option>
+                                    <option value="website">Website Development</option>
+                                    <option value="ecommerce">eCommerce Store</option>
+                                    <option value="marketing">Digital Marketing</option>
+                                    <option value="ai">AI Solutions</option>
+                                    <option value="consulting">IT Consulting</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeline">Expected Timeline <span class="req">*</span></label>
+                                <select id="timeline" name="timeline" required>
+                                    <option value="" disabled selected>Select timeline</option>
+                                    <option value="urgent">Urgent (Within 2 weeks)</option>
+                                    <option value="1month">1 Month</option>
+                                    <option value="2-3months">2 - 3 Months</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="dynamic-web" class="dynamic-section form-row">
+                            <div class="form-group">
+                                <label for="webType">Website Type <span class="req">*</span></label>
+                                <select id="webType" name="webType" data-dyn-req="true">
+                                    <option value="" disabled selected>Select type</option>
+                                    <option value="company">Company Profile</option>
+                                    <option value="portfolio">Portfolio</option>
+                                    <option value="landing">Landing Page</option>
+                                    <option value="webapp">Custom Web App</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="webPages">Approximate Pages <span class="req">*</span></label>
+                                <select id="webPages" name="webPages" data-dyn-req="true">
+                                    <option value="" disabled selected>Select range</option>
+                                    <option value="1-5">1 - 5 Pages</option>
+                                    <option value="6-10">6 - 10 Pages</option>
+                                    <option value="11-20">11 - 20 Pages</option>
+                                    <option value="20+">20+ Pages</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="dynamic-ecom" class="dynamic-section form-row">
+                            <div class="form-group">
+                                <label for="ecomPlatform">Preferred Platform <span class="req">*</span></label>
+                                <select id="ecomPlatform" name="ecomPlatform" data-dyn-req="true">
+                                    <option value="" disabled selected>Select platform</option>
+                                    <option value="shopify">Shopify</option>
+                                    <option value="woocommerce">WooCommerce</option>
+                                    <option value="custom">Custom Built</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ecomProducts">Approximate Products <span class="req">*</span></label>
+                                <select id="ecomProducts" name="ecomProducts" data-dyn-req="true">
+                                    <option value="" disabled selected>Select range</option>
+                                    <option value="1-20">1 - 20 Products</option>
+                                    <option value="21-100">21 - 100 Products</option>
+                                    <option value="101-500">101 - 500 Products</option>
+                                    <option value="500+">500+ Products</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="dynamic-marketing" class="dynamic-section form-row">
+                            <div class="form-group">
+                                <label for="marketingGoal">Primary Goal <span class="req">*</span></label>
+                                <select id="marketingGoal" name="marketingGoal" data-dyn-req="true">
+                                    <option value="" disabled selected>Select goal</option>
+                                    <option value="leads">Lead Generation</option>
+                                    <option value="sales">Direct Sales</option>
+                                    <option value="branding">Brand Awareness</option>
+                                    <option value="traffic">Website Traffic</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="adBudget">Monthly Ad Budget (Optional)</label>
+                                <input type="text" id="adBudget" name="adBudget" placeholder="e.g., ₹50,000">
+                            </div>
+                        </div>
+
+                        <div id="dynamic-ai" class="dynamic-section">
+                            <div class="form-group">
+                                <label for="aiUseCase">AI Use Case <span class="req">*</span></label>
+                                <select id="aiUseCase" name="aiUseCase" data-dyn-req="true">
+                                    <option value="" disabled selected>Select use case</option>
+                                    <option value="chatbot">Customer Support Chatbot</option>
+                                    <option value="automation">Workflow Automation</option>
+                                    <option value="analytics">Predictive Analytics</option>
+                                    <option value="custom">Custom AI Model</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="dynamic-consulting" class="dynamic-section">
+                            <div class="form-group">
+                                <label for="consultingTopic">Consulting Topic <span class="req">*</span></label>
+                                <select id="consultingTopic" name="consultingTopic" data-dyn-req="true">
+                                    <option value="" disabled selected>Select topic</option>
+                                    <option value="growth">Growth Strategy</option>
+                                    <option value="funnels">Sales Funnels</option>
+                                    <option value="branding">Brand Positioning</option>
+                                    <option value="ops">Business Operations</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="budget">Overall Budget Range (Optional)</label>
+                                <input type="text" id="budget" name="budget" placeholder="e.g., ₹1,00,000 - ₹2,00,000">
+                            </div>
+                            <div class="form-group">
+                                <label for="preferredContact">Preferred Contact Method <span class="req">*</span></label>
+                                <select id="preferredContact" name="preferredContact" required>
+                                    <option value="" disabled selected>Select method</option>
+                                    <option value="whatsapp">WhatsApp</option>
+                                    <option value="call">Phone Call</option>
+                                    <option value="email">Email</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referenceUrl">Reference Website URL (Optional)</label>
+                            <input type="url" id="referenceUrl" name="referenceUrl" placeholder="https://example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requirements">Detailed Requirements <span class="req">*</span></label>
+                            <textarea id="requirements" name="requirements" required placeholder="Describe your project goals, features needed, and any specific challenges..."></textarea>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree that the ₹199 fee is non-refundable and dedicated to requirement review & priority consultation scheduling.</label>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn-primary">Pay ₹199 & Submit Inquiry</button>
+                            <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+
+            <aside class="pricing-info">
+                <div class="card">
+                    <span class="badge">Inquiry Fee: ₹199</span>
+                    <h2>Premium Consultation</h2>
+                    <p>To maintain serious inquiries and provide faster, high-quality support, we charge a nominal ₹199 inquiry fee. After payment, our technical team reviews your requirements in depth.</p>
+                    
+                    <ul class="perks-list">
+                        <li>Comprehensive requirement review</li>
+                        <li>Priority Call or WhatsApp response within 24 hours</li>
+                        <li>Strategic service suggestion & rough timeline</li>
+                        <li>Ensures 100% serious inquiries only</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span>Payment successful ✅ Inquiry submitted!</span>
+    </div>
+
+    <script src="./Assets/Js/Form_js.js"></script>
+</body>
+</html>

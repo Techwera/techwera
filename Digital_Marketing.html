@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing | Techwera</title>
+    <style>
+        :root {
+            --bg-page: #05070A;
+            --bg-nav: rgba(5, 7, 10, 0.85);
+            --bg-surface: #0f172a;
+            --accent-blue: #0ea5e9;
+            --accent-cyan: #00F0FF;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        :focus-visible { outline: 2px dashed var(--accent-cyan); outline-offset: 4px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Navbar */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--bg-nav);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 0;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--accent-cyan); }
+        
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .back-link { color: var(--text-muted); text-decoration: none; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-weight: 500;}
+        .back-link:hover { color: var(--accent-cyan); }
+        .nav-cta {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            color: #05070A; padding: 10px 24px; font-weight: 600; border-radius: 50px;
+            text-decoration: none; transition: var(--transition);
+        }
+        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3); }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 100px; text-align: center;
+            background: radial-gradient(circle at top center, rgba(14, 165, 233, 0.15), transparent 60%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .hero h1 {
+            font-size: 3.5rem; line-height: 1.2; margin-bottom: 24px;
+            background: linear-gradient(90deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        /* Sections */
+        section { padding: 100px 0; }
+        .section-title { font-size: 2rem; margin-bottom: 60px; text-align: center; }
+
+        /* A) Marketing Services Grid */
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+        }
+        .info-card {
+            background: var(--bg-surface); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 32px 24px; transition: var(--transition);
+        }
+        .info-card:hover { border-color: rgba(0, 240, 255, 0.3); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+        .info-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: #fff; display: flex; align-items: center; gap: 12px; }
+        .info-card p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+        .card-dot { width: 10px; height: 10px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--accent-cyan);}
+
+        /* B) What you get (Checklist) */
+        .deliverables-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
+        }
+        .deliverable-item {
+            display: flex; align-items: flex-start; gap: 16px;
+            background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .check-icon { color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem; }
+
+        /* C) Process Steps */
+        .process-container {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+        }
+        .process-step {
+            flex: 1; min-width: 120px; text-align: center;
+            background: var(--bg-surface); padding: 24px 12px;
+            border-radius: 16px; border: 1px solid var(--glass-border);
+            position: relative; transition: var(--transition);
+        }
+        .process-step:hover { border-color: var(--accent-blue); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.1); }
+        .step-number {
+            width: 36px; height: 36px; background: rgba(14, 165, 233, 0.1);
+            color: var(--accent-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; margin: 0 auto 12px; border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        .process-arrow { color: var(--text-muted); font-size: 1.5rem; }
+
+        /* D) KPIs */
+        .kpi-wrapper {
+            background: linear-gradient(90deg, var(--bg-surface), #05070A);
+            border: 1px solid var(--glass-border); border-radius: 24px; padding: 48px;
+            display: flex; justify-content: space-around; flex-wrap: wrap; gap: 32px; text-align: center;
+        }
+        .kpi-block h4 { font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 8px; font-weight: 800; letter-spacing: 1px; }
+        .kpi-block p { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* E) FAQ Accordion */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--glass-border); margin-bottom: 16px; }
+        .faq-btn {
+            width: 100%; text-align: left; background: none; border: none;
+            color: var(--text-main); font-size: 1.1rem; font-weight: 600; font-family: inherit;
+            padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-btn:hover { color: var(--accent-cyan); }
+        .faq-icon { font-size: 1.5rem; transition: transform 0.3s ease; color: var(--accent-cyan); }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-muted); }
+        .faq-content p { padding-bottom: 20px; margin: 0; }
+        .faq-item.active .faq-content { max-height: 300px; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+        /* F) CTA */
+        .cta-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 240, 255, 0.05));
+            text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);
+        }
+        .btn {
+            display: inline-block; background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            color: #05070A; padding: 16px 40px; font-size: 1.1rem; font-weight: bold;
+            border-radius: 50px; text-decoration: none; box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+            transition: var(--transition); border: none; cursor: pointer;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 240, 255, 0.4); }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .process-container { flex-direction: column; }
+            .process-arrow { transform: rotate(90deg); margin: 5px 0; }
+            .process-step { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { gap: 12px; }
+            .nav-cta { display: none; /* Hidden on tiny screens for space, or replace with icon */ }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Techwera<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="back-link"><span>←</span>Back to Home</a>
+                <!-- <a href="inquiry.html" class="nav-cta">New Inquiry</a> -->
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container reveal">
+            <h1>Digital Marketing</h1>
+            <p>Performance-focused marketing designed to drive leads, sales, and explosive growth. Stop guessing and start scaling with data.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+            <h2 class="section-title reveal">Core Growth Channels</h2>
+            <div class="services-grid">
+                <div class="info-card reveal" style="transition-delay: 0.1s;">
+                    <h3><span class="card-dot"></span> Google Ads</h3>
+                    <p>High-intent Search, Display, and Shopping campaigns optimized for minimum Cost Per Acquisition (CPA).</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.2s;">
+                    <h3><span class="card-dot"></span> Meta Ads</h3>
+                    <p>Targeted Facebook and Instagram advertising leveraging advanced pixel data to retarget and convert.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.3s;">
+                    <h3><span class="card-dot"></span> SEO Services</h3>
+                    <p>Comprehensive On-page, Off-page, and Technical SEO to build organic authority and long-term traffic.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.4s;">
+                    <h3><span class="card-dot"></span> Social Media Mgmt</h3>
+                    <p>Engaging organic content strategies that build brand loyalty, community, and social proof.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.5s;">
+                    <h3><span class="card-dot"></span> CRO</h3>
+                    <p>Conversion Rate Optimization to turn your existing traffic into revenue through A/B testing and UX tweaks.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.6s;">
+                    <h3><span class="card-dot"></span> Email & WhatsApp</h3>
+                    <p>Automated retention flows and broadcast campaigns to maximize the Lifetime Value (LTV) of your customers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: rgba(255,255,255,0.01);">
+            <div class="container">
+                <h2 class="section-title reveal">Metrics We Obsess Over</h2>
+                <div class="kpi-wrapper reveal">
+                    <div class="kpi-block">
+                        <h4>LEADS</h4>
+                        <p>Qualified Volume</p>
+                    </div>
+                    <div class="kpi-block">
+                        <h4>ROAS</h4>
+                        <p>Return on Ad Spend</p>
+                    </div>
+                    <div class="kpi-block">
+                        <h4>CPA</h4>
+                        <p>Cost Per Acquisition</p>
+                    </div>
+                    <div class="kpi-block">
+                        <h4>CTR</h4>
+                        <p>Click-Through Rate</p>
+                    </div>
+                    <div class="kpi-block">
+                        <h4>CVR</h4>
+                        <p>Conversion Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title reveal">What's Included in Your Campaign</h2>
+            <div class="deliverables-grid">
+                <div class="deliverable-item reveal">
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong style="color:#fff;">Strategy & Research</strong>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">In-depth audience and competitor analysis before spending a dime.</p>
+                    </div>
+                </div>
+                <div class="deliverable-item reveal" style="transition-delay: 0.1s;">
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong style="color:#fff;">Ad Creatives Guidance</strong>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Direction on copy, imagery, and video frameworks that actually convert.</p>
+                    </div>
+                </div>
+                <div class="deliverable-item reveal" style="transition-delay: 0.2s;">
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong style="color:#fff;">Weekly Optimization</strong>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Continuous bid adjustments, A/B testing, and scaling winning ads.</p>
+                    </div>
+                </div>
+                <div class="deliverable-item reveal" style="transition-delay: 0.3s;">
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong style="color:#fff;">Tracking Setup</strong>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Flawless integration of Meta Pixel, Conversions API, and GA4.</p>
+                    </div>
+                </div>
+                <div class="deliverable-item reveal" style="transition-delay: 0.4s;">
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong style="color:#fff;">Monthly Reporting</strong>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Transparent, easy-to-read dashboards showing exactly where your money went.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: rgba(255,255,255,0.01);">
+            <div class="container">
+                <h2 class="section-title reveal">Our Growth Methodology</h2>
+                <div class="process-container">
+                    <div class="process-step reveal">
+                        <div class="step-number">1</div>
+                        <h4>Audit</h4>
+                    </div>
+                    <div class="process-arrow reveal">→</div>
+                    
+                    <div class="process-step reveal" style="transition-delay: 0.1s;">
+                        <div class="step-number">2</div>
+                        <h4>Strategy</h4>
+                    </div>
+                    <div class="process-arrow reveal">→</div>
+                    
+                    <div class="process-step reveal" style="transition-delay: 0.2s;">
+                        <div class="step-number">3</div>
+                        <h4>Setup</h4>
+                    </div>
+                    <div class="process-arrow reveal">→</div>
+                    
+                    <div class="process-step reveal" style="transition-delay: 0.3s;">
+                        <div class="step-number">4</div>
+                        <h4>Launch</h4>
+                    </div>
+                    <div class="process-arrow reveal">→</div>
+                    
+                    <div class="process-step reveal" style="transition-delay: 0.4s;">
+                        <div class="step-number">5</div>
+                        <h4>Optimize</h4>
+                    </div>
+                    <div class="process-arrow reveal">→</div>
+                    
+                    <div class="process-step reveal" style="transition-delay: 0.5s;">
+                        <div class="step-number">6</div>
+                        <h4>Scale</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container faq-container">
+            <h2 class="section-title reveal">Frequently Asked Questions</h2>
+            
+            <div class="faq-item reveal">
+                <button class="faq-btn" aria-expanded="false">
+                    How long until I see results? <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>Paid ads (Google/Meta) can generate leads or sales within the first week of launch. However, organic strategies like SEO typically take 3 to 6 months to show significant compound growth.</p>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-btn" aria-expanded="false">
+                    Do you require long-term contracts? <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>While we recommend a 3-month commitment to allow algorithms to optimize and gather sufficient data, we do not lock you into rigid long-term contracts. We prefer to retain clients through performance.</p>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-btn" aria-expanded="false">
+                    What is your management fee structure? <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>Our management fees are either a fixed monthly retainer or a percentage of ad spend, depending on the scale and complexity of your campaigns. We clarify all costs upfront during our discovery call.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Stop Wasting Your Ad Spend</h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 600px; margin-inline: auto;">Partner with us to build a predictable revenue engine. Let's discuss your targets and audit your current setup.</p>
+                <a href="./Inquiry_Form.html" class="btn">Send Inquiry</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            reveals.forEach(el => observer.observe(el));
+
+            // FAQ Accordion
+            const faqBtns = document.querySelectorAll('.faq-btn');
+            faqBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    document.querySelectorAll('.faq-item').forEach(el => {
+                        el.classList.remove('active');
+                        el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

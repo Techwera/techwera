@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Development | Techwera</title>
+    <style>
+        :root {
+            --bg-page: #05070A;
+            --bg-nav: rgba(5, 7, 10, 0.85);
+            --bg-surface: #0f172a;
+            --accent-blue: #0ea5e9;
+            --accent-cyan: #00F0FF;
+            --accent-purple: #7000FF;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        :focus-visible { outline: 2px dashed var(--accent-cyan); outline-offset: 4px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Navbar */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--bg-nav);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 0;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--accent-cyan); }
+        .back-link { color: var(--text-muted); text-decoration: none; transition: var(--transition); display: flex; align-items: center; gap: 8px;}
+        .back-link:hover { color: var(--accent-cyan); }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 100px; text-align: center;
+            background: radial-gradient(circle at top center, rgba(112, 0, 255, 0.15), transparent 60%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .hero h1 {
+            font-size: 3.5rem; line-height: 1.2; margin-bottom: 24px;
+            background: linear-gradient(90deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        /* Sections */
+        section { padding: 100px 0; }
+        .section-title { font-size: 2rem; margin-bottom: 60px; text-align: center; }
+
+        /* Grid Frameworks */
+        .grid-2, .grid-3 { display: grid; gap: 24px; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+        .info-card {
+            background: var(--bg-surface); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 32px 24px; transition: var(--transition);
+        }
+        .info-card:hover { border-color: rgba(0, 240, 255, 0.3); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .info-icon { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 16px; }
+        .info-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #fff; }
+        .info-card p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+
+        /* Process Steps */
+        .process-container {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .process-step {
+            flex: 1; min-width: 140px; text-align: center;
+            background: var(--bg-surface); padding: 32px 16px;
+            border-radius: 16px; border: 1px solid var(--glass-border);
+            position: relative; transition: var(--transition);
+        }
+        .process-step:hover { border-color: var(--accent-purple); box-shadow: 0 10px 20px rgba(112,0,255,0.1); }
+        .step-number {
+            width: 40px; height: 40px; background: rgba(112, 0, 255, 0.1);
+            color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; margin: 0 auto 16px; border: 1px solid rgba(112, 0, 255, 0.4);
+        }
+        .process-arrow { color: var(--text-muted); font-size: 1.5rem; }
+
+        /* FAQ Accordion */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--glass-border); margin-bottom: 16px; }
+        .faq-btn {
+            width: 100%; text-align: left; background: none; border: none;
+            color: var(--text-main); font-size: 1.1rem; font-weight: 600; font-family: inherit;
+            padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-btn:hover { color: var(--accent-cyan); }
+        .faq-icon { font-size: 1.5rem; transition: transform 0.3s ease; color: var(--accent-cyan); }
+        .faq-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-muted);
+        }
+        .faq-content p { padding-bottom: 20px; margin: 0; }
+        .faq-item.active .faq-content { max-height: 300px; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 240, 255, 0.05));
+            text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);
+        }
+        .btn {
+            display: inline-block; background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            color: #05070A; padding: 16px 40px; font-size: 1.1rem; font-weight: bold;
+            border-radius: 50px; text-decoration: none; box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+            transition: var(--transition); border: none; cursor: pointer;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 240, 255, 0.4); }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .process-container { flex-direction: column; }
+            .process-arrow { transform: rotate(90deg); margin: 10px 0; }
+            .process-step { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Techwera<span>.</span></a>
+            <a href="index.html" class="back-link"><span>←</span>Back to Home</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container reveal">
+            <h1>Website Development</h1>
+            <p>High-performance websites designed to convert and scale. We build secure, lightning-fast web experiences tailored to your brand.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+            <h2 class="section-title reveal">What We Build</h2>
+            <div class="grid-2">
+                <div class="info-card reveal" style="transition-delay: 0.1s;">
+                    <div class="info-icon">🏢</div>
+                    <h3>Company Websites</h3>
+                    <p>Professional, authoritative corporate sites that establish trust and clearly communicate your value proposition.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.2s;">
+                    <div class="info-icon">🎯</div>
+                    <h3>Landing Pages</h3>
+                    <p>Hyper-focused, high-conversion landing pages designed specifically for your marketing and ad campaigns.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.3s;">
+                    <div class="info-icon">🎨</div>
+                    <h3>Portfolios</h3>
+                    <p>Stunning, interactive showcases for creative agencies, freelancers, and design-forward brands.</p>
+                </div>
+                <div class="info-card reveal" style="transition-delay: 0.4s;">
+                    <div class="info-icon">💻</div>
+                    <h3>Web Apps</h3>
+                    <p>Complex, data-driven web applications built with modern frameworks for seamless interactivity.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: rgba(255,255,255,0.01);">
+            <div class="container">
+                <h2 class="section-title reveal">Key Features</h2>
+                <div class="grid-3">
+                    <div class="info-card reveal">
+                        <div class="info-icon">📱</div>
+                        <h3>Mobile-First UI/UX</h3>
+                        <p>Flawless rendering and intuitive navigation across all devices and screen sizes.</p>
+                    </div>
+                    <div class="info-card reveal" style="transition-delay: 0.1s;">
+                        <div class="info-icon">⚡</div>
+                        <h3>Speed & Optimization</h3>
+                        <p>Optimized assets and clean code architecture for sub-second page load times.</p>
+                    </div>
+                    <div class="info-card reveal" style="transition-delay: 0.2s;">
+                        <div class="info-icon">🔍</div>
+                        <h3>SEO-Ready Structure</h3>
+                        <p>Semantic HTML and structured data built-in to rank higher on search engines.</p>
+                    </div>
+                    <div class="info-card reveal" style="transition-delay: 0.3s;">
+                        <div class="info-icon">🔒</div>
+                        <h3>Security Best Practices</h3>
+                        <p>Hardened security protocols to protect your data and ensure safe browsing.</p>
+                    </div>
+                    <div class="info-card reveal" style="transition-delay: 0.4s;">
+                        <div class="info-icon">📝</div>
+                        <h3>Admin-Friendly CMS</h3>
+                        <p>Easy-to-use content management systems allowing you to update text and images effortlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title reveal">Development Lifecycle</h2>
+            <div class="process-container">
+                <div class="process-step reveal">
+                    <div class="step-number">1</div>
+                    <h4>Discovery</h4>
+                </div>
+                <div class="process-arrow reveal" style="transition-delay: 0.1s;">→</div>
+                
+                <div class="process-step reveal" style="transition-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <h4>UI/UX</h4>
+                </div>
+                <div class="process-arrow reveal" style="transition-delay: 0.3s;">→</div>
+                
+                <div class="process-step reveal" style="transition-delay: 0.4s;">
+                    <div class="step-number">3</div>
+                    <h4>Development</h4>
+                </div>
+                <div class="process-arrow reveal" style="transition-delay: 0.5s;">→</div>
+                
+                <div class="process-step reveal" style="transition-delay: 0.6s;">
+                    <div class="step-number">4</div>
+                    <h4>QA Testing</h4>
+                </div>
+                <div class="process-arrow reveal" style="transition-delay: 0.7s;">→</div>
+                
+                <div class="process-step reveal" style="transition-delay: 0.8s;">
+                    <div class="step-number">5</div>
+                    <h4>Launch</h4>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: rgba(255,255,255,0.01);">
+            <div class="container faq-container">
+                <h2 class="section-title reveal">Frequently Asked Questions</h2>
+                
+                <div class="faq-item reveal">
+                    <button class="faq-btn" aria-expanded="false">
+                        How long does it take to build a website? <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>A standard corporate website typically takes 3 to 6 weeks from discovery to launch. Complex web apps or highly custom designs may require 8 to 12 weeks depending on the scope.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-btn" aria-expanded="false">
+                        Will I be able to update the website myself? <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>Absolutely. We build our sites on user-friendly Content Management Systems (CMS) and provide full training so your team can easily update text, images, and add new pages without coding knowledge.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-btn" aria-expanded="false">
+                        Do you provide hosting and maintenance? <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p>Yes! We offer dedicated, high-speed cloud hosting and ongoing maintenance packages to ensure your site remains secure, updated, and performing optimally long after launch.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Ready to Elevate Your Web Presence?</h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Let's discuss your project requirements and architect a digital experience that converts.</p>
+                <a href="./Inquiry_Form.html" class="btn">Send Inquiry</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Scroll Reveal
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            reveals.forEach(el => observer.observe(el));
+
+            // 2. FAQ Accordion Logic
+            const faqBtns = document.querySelectorAll('.faq-btn');
+            faqBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all others (optional: remove this block to allow multiple open)
+                    document.querySelectorAll('.faq-item').forEach(el => {
+                        el.classList.remove('active');
+                        el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+                    });
+
+                    // Toggle clicked item
+                    if (!isActive) {
+                        item.classList.add('active');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

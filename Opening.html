@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Opening | Omira Innovations</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-glow: #f9e29c;
+            --royal-blue: #002366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--royal-blue) 0%, #000 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Particles Background */
+        #canvas-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Header Text */
+        .ganesh-mantra {
+            position: absolute;
+            top: 40px;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.4);
+            font-weight: bold;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Main Container */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            transition: all 0.8s ease;
+        }
+
+        .status-text {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            color: var(--gold-glow);
+        }
+
+        /* Countdown Style */
+        #countdown {
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(to bottom, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+        }
+
+        /* Final Announcement Style */
+        #celebration {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 100%;
+            opacity: 0;
+        }
+
+        #celebration h1 {
+            font-size: 5rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            text-shadow: 0 0 30px var(--gold);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 20px var(--gold); transform: scale(1); }
+            to { text-shadow: 0 0 50px var(--gold), 0 0 70px #fff; transform: scale(1.05); }
+        }
+
+        /* Transitions */
+        .fade-out {
+            opacity: 0;
+            transform: scale(1.5);
+            filter: blur(10px);
+        }
+
+        .reveal-opening {
+            display: block !important;
+            animation: reveal 1s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes reveal {
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .ganesh-mantra { font-size: 1.8rem; }
+            #countdown { font-size: 5rem; }
+            #celebration h1 { font-size: 2.5rem; }
+            .status-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="ganesh-mantra">શ્રી ગણેશાય નમઃ</div>
+
+    <div class="content-wrapper" id="main-ui">
+        <p class="status-text">Launching In</p>
+        <div id="countdown">10</div>
+    </div>
+
+    <div id="celebration">
+        <h1>Grand Opening</h1>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        const countdownEl = document.getElementById('countdown');
+        const mainUi = document.getElementById('main-ui');
+        const celebration = document.getElementById('celebration');
+        
+        let width, height, particles = [];
+
+        // Initialize Background Particles
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for(let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5 + 0.1,
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "white";
+            particles.forEach(p => {
+                ctx.globalAlpha = p.opacity;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.y -= p.speed;
+                if(p.y < 0) p.y = height;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Confetti Effect
+        function createConfetti() {
+            for(let i = 0; i < 150; i++) {
+                const conf = document.createElement('div');
+                conf.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${['#d4af37', '#ffffff', '#ffd700', '#002366'][Math.floor(Math.random()*4)]};
+                    top: 50%;
+                    left: 50%;
+                    z-index: 5;
+                    border-radius: 50%;
+                `;
+                document.body.appendChild(conf);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 15 + 5;
+                const tx = Math.cos(angle) * velocity * 50;
+                const ty = Math.sin(angle) * velocity * 50;
+
+                conf.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 2000 + Math.random() * 1000,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+
+                setTimeout(() => conf.remove(), 3000);
+            }
+        }
+
+        // Sound Effect (Beep)
+        function playBeep(freq = 440, duration = 0.1) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log("Audio blocked by browser"); }
+        }
+
+        // Logic
+        let timeLeft = 10;
+        const timer = setInterval(() => {
+            timeLeft--;
+            if(timeLeft >= 0) {
+                countdownEl.innerText = timeLeft;
+                playBeep(500 + (10 - timeLeft) * 50);
+            }
+
+            if(timeLeft === 0) {
+                clearInterval(timer);
+                startOpening();
+            }
+        }, 1000);
+
+        function startOpening() {
+            playBeep(880, 0.5);
+            mainUi.classList.add('fade-out');
+            
+            setTimeout(() => {
+                mainUi.style.display = 'none';
+                celebration.classList.add('reveal-opening');
+                createConfetti();
+                
+                // Final Redirect
+                setTimeout(() => {
+                    document.body.style.transition = "opacity 1.5s";
+                    document.body.style.opacity = "0";
+                    setTimeout(() => {
+                        window.location.href = "http://127.0.0.1:5500/Opening.html";
+                    }, 1500);
+                }, 3500);
+            }, 800);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateParticles();
+    </script>
+</body>
+</html>

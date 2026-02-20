@@ -77,6 +77,6 @@
 document.getElementById("WhatsApp").addEventListener("click", function () {
     this.innerText = this.getAttribute("data-msg");
     setTimeout(() => {
-        window.open("https://www.upwork.com/freelancers/~016da5a3a3db1e23a9", "_blank");
+        window.open("https://wa.me/918200212289?text=Hello%20Techwera%2C%20I%20want%20to%20inquire%20about%20your%20services.", "_blank");
     }, 500);
 });

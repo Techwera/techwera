@@ -73,3 +73,10 @@
                 });
             });
         });
+        // Whatsapp Btn 
+document.getElementById("WhatsApp").addEventListener("click", function () {
+    this.innerText = this.getAttribute("data-msg");
+    setTimeout(() => {
+        window.open("https://www.upwork.com/freelancers/~016da5a3a3db1e23a9", "_blank");
+    }, 500);
+});
